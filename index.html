@@ -22,21 +22,21 @@
       // Получение экземпляра мессенджера Firebase
       const messaging = firebase.messaging();
 
-      // // Запрос на получение разрешения пользователя для отправки уведомлений
-      // function requestPermission() {
-      //   Notification.requestPermission()
-      //     .then((permission) => {
-      //       if (permission === 'granted') {
-      //         console.log('Уведомления разрешены');
-      //         getToken();
-      //       } else {
-      //         console.log('Уведомления запрещены');
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.log('Ошибка при запросе разрешения:', error);
-      //     });
-      // }
+      // Запрос на получение разрешения пользователя для отправки уведомлений
+      function requestPermission() {
+        Notification.requestPermission()
+          .then((permission) => {
+            if (permission === 'granted') {
+              console.log('Уведомления разрешены');
+              getToken();
+            } else {
+              console.log('Уведомления запрещены');
+            }
+          })
+          .catch((error) => {
+            console.log('Ошибка при запросе разрешения:', error);
+          });
+      }
 
       // // Получение токена устройства для отправки уведомлений
       // function getToken() {
