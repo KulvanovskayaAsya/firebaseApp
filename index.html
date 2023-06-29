@@ -1,55 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FirebaseTest</title>
-</head>
-<body>
-  <h1>This is Firebase test page</h1>
-  <button type="button" id="subscribe">Следить за изменениями</button>
+<html>
+  <head>
+    <title>Тестовый сайт</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+    <script>
+      // Конфигурация Firebase проекта
+      const firebaseConfig = {
+        apiKey: "AIzaSyDY-mt6s0xxvoCHtsXSflHczhMZ43GP8CQ",
+        authDomain: "grandcasino-47124.firebaseapp.com",
+        projectId: "grandcasino-47124",
+        storageBucket: "grandcasino-47124.appspot.com",
+        messagingSenderId: "1055046129020",
+        appId: "1:1055046129020:web:82d8b2224aa908550240f9",
+        measurementId: "G-B8ZQV7SDLF"
+      };
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
+      // Инициализация Firebase
+      firebase.initializeApp(firebaseConfig);
+      
+      // Получение экземпляра мессенджера Firebase
+      const messaging = firebase.messaging();
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getMessaging, onMessage } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDY-mt6s0xxvoCHtsXSflHczhMZ43GP8CQ",
-      authDomain: "grandcasino-47124.firebaseapp.com",
-      projectId: "grandcasino-47124",
-      storageBucket: "grandcasino-47124.appspot.com",
-      messagingSenderId: "1055046129020",
-      appId: "1:1055046129020:web:82d8b2224aa908550240f9",
-      measurementId: "G-B8ZQV7SDLF"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const messaging = getMessaging();
-
-    const subscribeButton = document.getElementById('subscribe');
-
-    subscribeButton.addEventListener('click', async () => {
-      try {
-        const permissionStatus = await Notification.requestPermission();
-        if (permissionStatus === 'granted') {
-          const token = await getToken(messaging);
-          console.log('Token:', token);
-          // Отправьте токен на сервер, чтобы привязать его к конкретному пользователю
-        } else {
-          console.log('Permission denied');
-        }
-      } catch (error) {
-        console.log('Error:', error);
+      // Запрос на получение разрешения пользователя для отправки уведомлений
+      function requestPermission() {
+        Notification.requestPermission()
+          .then((permission) => {
+            if (permission === 'granted') {
+              console.log('Уведомления разрешены');
+              getToken();
+            } else {
+              console.log('Уведомления запрещены');
+            }
+          })
+          .catch((error) => {
+            console.log('Ошибка при запросе разрешения:', error);
+          });
       }
-    });
 
-    onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
-    });
-  </script>
-</body>
+      // Получение токена устройства для отправки уведомлений
+      function getToken() {
+        messaging.getToken({ vapidKey: 'YOUR_PUBLIC_VAPID_KEY' })
+          .then((currentToken) => {
+            if (currentToken) {
+              console.log('Токен устройства:', currentToken);
+            } else {
+              console.log('Токен устройства не найден');
+            }
+          })
+          .catch((error) => {
+            console.log('Ошибка при получении токена устройства:', error);
+          });
+      }
+
+      // Обработка входящих сообщений от Firebase
+      messaging.onMessage((payload) => {
+        console.log('Получено сообщение:', payload);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Тестовый сайт</h1>
+    <button onclick="requestPermission()">Разрешить уведомления</button>
+  </body>
 </html>
