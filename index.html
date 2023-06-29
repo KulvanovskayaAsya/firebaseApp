@@ -8,27 +8,27 @@
 <body>
     <h1>This is Firebase test page</h1>
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-       
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyDY-mt6s0xxvoCHtsXSflHczhMZ43GP8CQ",
-          authDomain: "grandcasino-47124.firebaseapp.com",
-          projectId: "grandcasino-47124",
-          storageBucket: "grandcasino-47124.appspot.com",
-          messagingSenderId: "1055046129020",
-          appId: "1:1055046129020:web:82d8b2224aa908550240f9",
-          measurementId: "G-B8ZQV7SDLF"
-        };
-       
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+      import { getMessaging } from "https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDY-mt6s0xxvoCHtsXSflHczhMZ43GP8CQ",
+        authDomain: "grandcasino-47124.firebaseapp.com",
+        projectId: "grandcasino-47124",
+        storageBucket: "grandcasino-47124.appspot.com",
+        messagingSenderId: "1055046129020",
+        appId: "1:1055046129020:web:82d8b2224aa908550240f9",
+        measurementId: "G-B8ZQV7SDLF"
+      };
+      
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const messaging = getMessaging(firebaseApp);
+
+      onMessage(messaging, (payload) => {
+        console.log('Message received. ', payload);
+      });
+    </script>
 </body>
 </html>
