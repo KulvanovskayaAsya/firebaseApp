@@ -2,65 +2,13 @@
 <html>
   <head>
     <title>Тестовый сайт</title>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
-    <script>
-      // Конфигурация Firebase проекта
-      const firebaseConfig = {
-        apiKey: "AIzaSyDY-mt6s0xxvoCHtsXSflHczhMZ43GP8CQ",
-        authDomain: "grandcasino-47124.firebaseapp.com",
-        projectId: "grandcasino-47124",
-        storageBucket: "grandcasino-47124.appspot.com",
-        messagingSenderId: "1055046129020",
-        appId: "1:1055046129020:web:82d8b2224aa908550240f9",
-        measurementId: "G-B8ZQV7SDLF"
-      };
-
-      // Инициализация Firebase
-      firebase.initializeApp(firebaseConfig);
-      
-      // Получение экземпляра мессенджера Firebase
-      const messaging = firebase.messaging();
-
-      // Запрос на получение разрешения пользователя для отправки уведомлений
-      function requestPermission() {
-        Notification.requestPermission()
-          .then((permission) => {
-            if (permission === 'granted') {
-              console.log('Уведомления разрешены');
-              // getToken();
-            } else {
-              console.log('Уведомления запрещены');
-            }
-          })
-          .catch((error) => {
-            console.log('Ошибка при запросе разрешения:', error);
-          });
-      }
-
-      // // Получение токена устройства для отправки уведомлений
-      // function getToken() {
-      //   messaging.getToken({ vapidKey: 'YOUR_PUBLIC_VAPID_KEY' })
-      //     .then((currentToken) => {
-      //       if (currentToken) {
-      //         console.log('Токен устройства:', currentToken);
-      //       } else {
-      //         console.log('Токен устройства не найден');
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.log('Ошибка при получении токена устройства:', error);
-      //     });
-      // }
-
-      // // Обработка входящих сообщений от Firebase
-      messaging.onMessage((payload) => {
-        console.log('Получено сообщение:', payload);
-      });
-    </script>
   </head>
   <body>
     <h1>Тестовый сайт</h1>
     <button onclick="requestPermission()">Разрешить уведомления</button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+    <script src="firebase-messaging.js" type="module"></script>
   </body>
 </html>
