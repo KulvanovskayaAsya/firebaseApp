@@ -9,8 +9,29 @@
   <h1>This is Firebase test page</h1>
   <button type="button" id="subscribe">Следить за изменениями</button>
 
-  <script type="text/javascript" src="//www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
-  <script type="text/javascript" src="/firebase_subscribe.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
+
+  <script>
+    const subscribeButton = document.getElementById('subscribe');
+
+    subscribeButton.addEventListener('click', async () => {
+      try {
+        const permissionStatus = await Notification.requestPermission();
+        if (permissionStatus === 'granted') {
+          const token = await getToken(messaging);
+          console.log('Token:', token);
+          // Отправьте токен на сервер, чтобы привязать его к конкретному пользователю
+        } else {
+          console.log('Permission denied');
+        }
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    });
+  </script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getMessaging, onMessage } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js';
@@ -26,7 +47,7 @@
     };
     
     const app = initializeApp(firebaseConfig);
-    const messaging = getMessaging(app);
+    const messaging = getMessaging();
 
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
