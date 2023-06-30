@@ -13,14 +13,24 @@ const messaging = firebase.messaging();
 
 function requestNotificationPermission() {
   messaging.requestPermission().then(function() {
-    console.log('Notification permission granted.');
-    // Subscribe to the FCM topic or send device token to your server
+    console.log('Разрешение на уведомления получено.');
   }).catch(function(error) {
-    console.log('Unable to get permission for notifications.', error);
+    console.log('Не удалось получить разрешение на уведомления.', error);
   });
 }
 
+messaging.getToken()
+  .then((currentToken) => {
+    if (currentToken) {
+      console.log('Token:', currentToken);
+    } else {
+      console.log('No registration token available.');
+    }
+  })
+  .catch((error) => {
+    console.log('An error occurred while retrieving token.', error);
+  });
+
 messaging.onMessage(function(payload) {
-  console.log('Message received:', payload);
-  // Display the notification using a library or custom code
+  console.log('Получено сообщение:', payload);
 });

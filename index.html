@@ -1,59 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Тестовый сайт</title>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
-        authDomain: "fir-messages-ed5a7.firebaseapp.com",
-        projectId: "fir-messages-ed5a7",
-        storageBucket: "fir-messages-ed5a7.appspot.com",
-        messagingSenderId: "282798683267",
-        appId: "1:282798683267:web:171c04bbdea4d522d417b6"
-      };
-
-      firebase.initializeApp(firebaseConfig);
-      
-      const messaging = firebase.messaging();
-
-      function requestPermission() {
-        Notification.requestPermission()
-          .then((permission) => {
-            if (permission === 'granted') {
-              console.log('Уведомления разрешены');
-              getToken();
-            } else {
-              console.log('Уведомления запрещены');
-            }
-          })
-          .catch((error) => {
-            console.log('Ошибка при запросе разрешения:', error);
-          });
-      }
-
-      function getToken() {
-        messaging.getToken({ vapidKey: 'YOUR_PUBLIC_VAPID_KEY' })
-          .then((currentToken) => {
-            if (currentToken) {
-              console.log('Токен устройства:', currentToken);
-            } else {
-              console.log('Токен устройства не найден');
-            }
-          })
-          .catch((error) => {
-            console.log('Ошибка при получении токена устройства:', error);
-          });
-      }
-
-      messaging.onMessage((payload) => {
-        console.log('Получено сообщение:', payload);
-      });
-    </script>
-  </head>
-  <body>
-    <h1>Тестовый сайт</h1>
-    <button onclick="requestPermission()">Разрешить уведомления</button>
-  </body>
+<head>
+  <title>Firebase Cloud Messaging Test</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>Firebase Cloud Messaging Test</h1>
+  <button onclick="requestNotificationPermission()">Request Permission</button>
+</body>
 </html>
