@@ -24,6 +24,23 @@
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
+
+      const messaging = getMessaging();
+      // Add the public key generated from the console here.
+      getToken(messaging, {vapidKey: "BPI-NJh3bMOYyKxJXz5h4YRnWXc1hqLf64Kefh9bq-0VNduzCXGXavC0Z47qBwqlAyA5AcZcPrQ4TGY4Ea2Ser4"});
+
+      messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+        // ...
+      });
+      
+      function requestPermission() {
+        console.log('Requesting permission...');
+        Notification.requestPermission().then((permission) => {
+          if (permission === 'granted')
+            console.log('Notification permission granted.');
+        })
+      }
     </script>
   </body>
 </html>
