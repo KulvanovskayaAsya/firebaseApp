@@ -25,6 +25,16 @@
       messaging.onMessage((payload) => {
         console.log('Получено уведомление', payload);
       });
+
+      messaging.requestPermission().then(() => {
+        console.log('Разрешение на уведомления получено');
+        
+        messaging.getToken().then((token) => {
+          console.log('Токен устройства:', token);
+        });
+      }).catch((err) => {
+        console.log('Невозможно получить разрешение на уведомления', err);
+      });
     </script>
   </body>
 </html>
