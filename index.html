@@ -5,32 +5,52 @@
   </head>
   <body>
     <h1>Тестовый сайт</h1>
-    <button onclick="requestPermission()">Разрешить уведомления</button>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-messaging.js"></script>
+    
     <script>
-      firebase.initializeApp({
+      var firebaseConfig = {
         apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
         authDomain: "fir-messages-ed5a7.firebaseapp.com",
         projectId: "fir-messages-ed5a7",
         storageBucket: "fir-messages-ed5a7.appspot.com",
         messagingSenderId: "282798683267",
         appId: "1:282798683267:web:171c04bbdea4d522d417b6"
-      });
-
+      };
+      firebase.initializeApp(firebaseConfig);
+      
       const messaging = firebase.messaging();
-      messaging.getToken({ vapidKey: "BPI-NJh3bMOYyKxJXz5h4YRnWXc1hqLf64Kefh9bq-0VNduzCXGXavC0Z47qBwqlAyA5AcZcPrQ4TGY4Ea2Ser4" })
-        .then((currentToken) => {
-          if (currentToken) {
-            console.log(currentToken);
-          } else {
-            console.log('No registration token available.');
-          }
-        })
-        .catch((err) => {
-          console.log('An error occurred while retrieving token. ', err);
-        });
+      
+      messaging.onMessage((payload) => {
+        console.log('Получено уведомление', payload);
+      });
     </script>
   </body>
 </html>
+
+<!-- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
+    authDomain: "fir-messages-ed5a7.firebaseapp.com",
+    projectId: "fir-messages-ed5a7",
+    storageBucket: "fir-messages-ed5a7.appspot.com",
+    messagingSenderId: "282798683267",
+    appId: "1:282798683267:web:171c04bbdea4d522d417b6"
+  });
+
+  const messaging = firebase.messaging();
+  messaging.getToken({ vapidKey: "BPI-NJh3bMOYyKxJXz5h4YRnWXc1hqLf64Kefh9bq-0VNduzCXGXavC0Z47qBwqlAyA5AcZcPrQ4TGY4Ea2Ser4" })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log(currentToken);
+      } else {
+        console.log('No registration token available.');
+      }
+    })
+    .catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+</script> -->
