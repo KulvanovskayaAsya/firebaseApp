@@ -5,7 +5,25 @@
   </head>
   <body>
     <h1>Тестовый сайт</h1>
-    
-    <script src="firebase-messaging-sw.js" type="module"></script>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
+        authDomain: "fir-messages-ed5a7.firebaseapp.com",
+        projectId: "fir-messages-ed5a7",
+        storageBucket: "fir-messages-ed5a7.appspot.com",
+        messagingSenderId: "282798683267",
+        appId: "1:282798683267:web:171c04bbdea4d522d417b6"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+    </script>
   </body>
 </html>
