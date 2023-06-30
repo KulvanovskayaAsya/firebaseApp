@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Firebase Message</title>
-  </head>
-  <body>
-    <h1>Тестовый сайт</h1>
-
-    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-messaging.js"></script>
-    
+    <title>Тестовый сайт</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
     <script>
-      var firebaseConfig = {
+      const firebaseConfig = {
         apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
         authDomain: "fir-messages-ed5a7.firebaseapp.com",
         projectId: "fir-messages-ed5a7",
@@ -18,49 +13,47 @@
         messagingSenderId: "282798683267",
         appId: "1:282798683267:web:171c04bbdea4d522d417b6"
       };
+
       firebase.initializeApp(firebaseConfig);
       
       const messaging = firebase.messaging();
-      
-      messaging.onMessage((payload) => {
-        console.log('Получено уведомление', payload);
-      });
 
-      messaging.requestPermission().then(() => {
-        console.log('Разрешение на уведомления получено');
-        
-        messaging.getToken().then((token) => {
-          console.log('Токен устройства:', token);
-        });
-      }).catch((err) => {
-        console.log('Невозможно получить разрешение на уведомления', err);
+      function requestPermission() {
+        Notification.requestPermission()
+          .then((permission) => {
+            if (permission === 'granted') {
+              console.log('Уведомления разрешены');
+              getToken();
+            } else {
+              console.log('Уведомления запрещены');
+            }
+          })
+          .catch((error) => {
+            console.log('Ошибка при запросе разрешения:', error);
+          });
+      }
+
+      function getToken() {
+        messaging.getToken({ vapidKey: 'YOUR_PUBLIC_VAPID_KEY' })
+          .then((currentToken) => {
+            if (currentToken) {
+              console.log('Токен устройства:', currentToken);
+            } else {
+              console.log('Токен устройства не найден');
+            }
+          })
+          .catch((error) => {
+            console.log('Ошибка при получении токена устройства:', error);
+          });
+      }
+
+      messaging.onMessage((payload) => {
+        console.log('Получено сообщение:', payload);
       });
     </script>
+  </head>
+  <body>
+    <h1>Тестовый сайт</h1>
+    <button onclick="requestPermission()">Разрешить уведомления</button>
   </body>
 </html>
-
-<!-- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
-<script>
-  firebase.initializeApp({
-    apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
-    authDomain: "fir-messages-ed5a7.firebaseapp.com",
-    projectId: "fir-messages-ed5a7",
-    storageBucket: "fir-messages-ed5a7.appspot.com",
-    messagingSenderId: "282798683267",
-    appId: "1:282798683267:web:171c04bbdea4d522d417b6"
-  });
-
-  const messaging = firebase.messaging();
-  messaging.getToken({ vapidKey: "BPI-NJh3bMOYyKxJXz5h4YRnWXc1hqLf64Kefh9bq-0VNduzCXGXavC0Z47qBwqlAyA5AcZcPrQ4TGY4Ea2Ser4" })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log(currentToken);
-      } else {
-        console.log('No registration token available.');
-      }
-    })
-    .catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
-    });
-</script> -->
