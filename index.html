@@ -1,46 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Тестовый сайт</title>
+    <title>Firebase Message</title>
   </head>
   <body>
     <h1>Тестовый сайт</h1>
+    <button onclick="requestPermission()">Разрешить уведомления</button>
 
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyBawUPnBPzcx4Y256Jd7EqMveSOCmhv0Yk",
-        authDomain: "fir-messages-ed5a7.firebaseapp.com",
-        projectId: "fir-messages-ed5a7",
-        storageBucket: "fir-messages-ed5a7.appspot.com",
-        messagingSenderId: "282798683267",
-        appId: "1:282798683267:web:171c04bbdea4d522d417b6"
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-
-      const messaging = getMessaging();
-      // Add the public key generated from the console here.
-      getToken(messaging, {vapidKey: "BPI-NJh3bMOYyKxJXz5h4YRnWXc1hqLf64Kefh9bq-0VNduzCXGXavC0Z47qBwqlAyA5AcZcPrQ4TGY4Ea2Ser4"});
-
-      messaging.onMessage((payload) => {
-        console.log('Message received. ', payload);
-        // ...
-      });
-      
-      function requestPermission() {
-        console.log('Requesting permission...');
-        Notification.requestPermission().then((permission) => {
-          if (permission === 'granted')
-            console.log('Notification permission granted.');
-        })
-      }
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
